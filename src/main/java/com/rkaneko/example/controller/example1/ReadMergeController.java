@@ -1,5 +1,7 @@
 package com.rkaneko.example.controller.example1;
 
+import com.rkaneko.example.controller.recommendation.RecommendationOutputForm;
+import io.reactivex.schedulers.Schedulers;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,8 @@ import com.rkaneko.example.infra.adapter.account.service.AccountService;
 import com.rkaneko.example.infra.adapter.recommendation.service.RecommendationService;
 import com.rkaneko.example.infra.adapter.video.service.VideoService;
 
+import java.util.Collections;
+
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ReadMergeController {
@@ -21,17 +25,27 @@ public class ReadMergeController {
     private final VideoService videoService;
     private final RecommendationService recommendationService;
 
+    private static final RecommendationOutputForm RECOMMENDATIONS_ON_ERROR = new RecommendationOutputForm(Collections.emptyList());
+
     @RequestMapping(path = "/api/example1", method = RequestMethod.POST)
     public ReadMergeOutputForm run(@Validated @RequestBody ReadMergeInputForm inputForm) {
-        LoginInputForm loginInputForm = new LoginInputForm(inputForm.getAccount(), inputForm.getPassword());
         // @formatter:off
         return accountService
-                .login(loginInputForm)
+                .login(inputForm.getAccount(), inputForm.getPassword())
+                .map(loginOutputForm -> {
+                    if (!loginOutputForm.isSuccess()) {
+                        throw new RuntimeException();
+                    }
+                    return loginOutputForm;
+                })
                 .flatMap(
-                        loginOutputForm -> recommendationService.get(loginOutputForm.accountId())
+                        loginOutputForm ->
+                                recommendationService
+                                        .get(loginOutputForm.accountId())
+                                        .onErrorReturnItem(RECOMMENDATIONS_ON_ERROR)
                 )
                 .zipWith(
-                        videoService.get()
+                        videoService.get().observeOn(Schedulers.computation())
                         , (recommendationOutputForm, videoOutputForm) ->
                                         new ReadMergeOutputForm(
                                                 videoOutputForm.getVideos()

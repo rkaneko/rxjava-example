@@ -6,5 +6,5 @@ import com.rkaneko.example.controller.account.LoginInputForm;
 import com.rkaneko.example.controller.account.LoginOutputForm;
 
 public interface AccountService {
-    Flowable<LoginOutputForm> login(LoginInputForm inputForm);
+    Flowable<LoginOutputForm> login(String account, String password);
 }

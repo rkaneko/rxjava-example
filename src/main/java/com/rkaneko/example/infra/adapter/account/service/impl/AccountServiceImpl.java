@@ -19,10 +19,11 @@ public class AccountServiceImpl implements AccountService {
     private final ApiRegistry apiRegistry;
 
     @Override
-    public Flowable<LoginOutputForm> login(LoginInputForm inputForm) {
-        Preconditions.checkNotNull(inputForm);
+    public Flowable<LoginOutputForm> login(String account, String password) {
+        Preconditions.checkNotNull(account);
+        Preconditions.checkNotNull(password);
 
         AccountApi accountApi = apiRegistry.of(AccountApi.class);
-        return accountApi.login(inputForm);
+        return accountApi.login(new LoginInputForm(account, password));
     }
 }
