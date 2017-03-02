@@ -8,10 +8,14 @@ task wrapper(type: Wrapper) {
 }
 
 ext {
+  jacksonVersion = "2.8.6"
+  retrofit2Version = "2.2.0"
+  okhttp3Version = "3.6.0"
+  rxJavaVersion = "2.0.6"
 }
 
 flyway {
-  url = "jdbc:mysql://localhost:3306/spring_rest?useSSL=true&characterEncoding=UTF-8&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"
+  url = "jdbc:mysql://localhost:3306/db_example?useSSL=true&characterEncoding=UTF-8&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"
   driver = "com.mysql.cj.jdbc.Driver"
   user = "root"
   password = ""
@@ -39,6 +43,17 @@ dependencies {
   //compile("org.springframework.boot:spring-boot-starter-security")
   compile("org.springframework.boot:spring-boot-devtools")
   //compile("org.springframework.session:spring-session")
+  compile("com.fasterxml.jackson.core:jackson-core:${jacksonVersion}")
+  compile("com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}")
+  compile("com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}")
+  compile("com.fasterxml.jackson.datatype:jackson-datatype-jdk8:${jacksonVersion}")
+  compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}")
+  compile("com.squareup.retrofit2:retrofit:${retrofit2Version}")
+  compile("com.squareup.retrofit2:converter-jackson:${retrofit2Version}")
+  compile("com.squareup.retrofit2:adapter-java8:${retrofit2Version}")
+  compile("com.squareup.okhttp3:logging-interceptor:${okhttp3Version}")
+  compile("io.reactivex.rxjava2:rxjava:${rxJavaVersion}")
+  compile("com.squareup.retrofit2:adapter-rxjava2:${retrofit2Version}")
   testCompile("junit:junit:4.12")
   testCompile("org.assertj:assertj-core:3.6.2")
   testCompile("org.springframework.boot:spring-boot-starter-test")
