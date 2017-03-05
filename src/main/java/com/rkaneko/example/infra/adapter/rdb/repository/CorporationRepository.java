@@ -33,6 +33,6 @@ public class CorporationRepository {
         );
         // @formatter:on
         Long corporationId = keyHolder.getKey().longValue();
-        return Corporation.of(corporationId, corporation.getName());
+        return Corporation.of(corporationId, corporation.getName(), corporation.getMessageUniqueKey());
     }
 }
