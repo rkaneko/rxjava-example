@@ -1,6 +1,6 @@
 package com.rkaneko.example.infra.adapter.video.service.impl;
 
-import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class VideoServiceImpl implements VideoService {
     private final ApiRegistry apiRegistry;
 
     @Override
-    public Flowable<VideoOutputForm> get() {
+    public Observable<VideoOutputForm> get() {
         VideoApi videoApi = apiRegistry.of(VideoApi.class);
         return videoApi.get();
     }

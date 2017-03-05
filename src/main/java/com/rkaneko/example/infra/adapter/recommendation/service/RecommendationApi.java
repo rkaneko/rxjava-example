@@ -1,6 +1,7 @@
 package com.rkaneko.example.infra.adapter.recommendation.service;
 
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -11,5 +12,5 @@ import com.rkaneko.example.controller.recommendation.RecommendationOutputForm;
 public interface RecommendationApi {
     @Headers({ "Content-Type: application/json", "Accept: application/json" })
     @POST("api/recommendation")
-    Flowable<RecommendationOutputForm> get(@Body RecommendationInputForm recommendationInputForm);
+    Observable<RecommendationOutputForm> get(@Body RecommendationInputForm recommendationInputForm);
 }

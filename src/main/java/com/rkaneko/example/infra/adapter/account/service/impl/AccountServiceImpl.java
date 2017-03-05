@@ -1,6 +1,6 @@
 package com.rkaneko.example.infra.adapter.account.service.impl;
 
-import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class AccountServiceImpl implements AccountService {
     private final ApiRegistry apiRegistry;
 
     @Override
-    public Flowable<LoginOutputForm> login(String account, String password) {
+    public Observable<LoginOutputForm> login(String account, String password) {
         Preconditions.checkNotNull(account);
         Preconditions.checkNotNull(password);
 

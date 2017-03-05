@@ -15,6 +15,9 @@ import com.rkaneko.example.infra.adapter.recommendation.model.Recommendation;
 public class RecommendationController {
     @RequestMapping(path = "/api/recommendation", method = RequestMethod.POST)
     public RecommendationOutputForm run(@Validated @RequestBody RecommendationInputForm inputForm) {
+        if (inputForm.getAccountId() % 2 == 0) {
+            throw new RuntimeException();
+        }
         Recommendation recommendation1 = new Recommendation(3L, "Badman begins", 5);
         Recommendation recommendation2 = new Recommendation(4L, "Iron man", 4);
         List<Recommendation> recommendations = Lists.newArrayList(recommendation1, recommendation2);

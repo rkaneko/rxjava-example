@@ -1,9 +1,8 @@
 package com.rkaneko.example.infra.adapter.recommendation.service;
 
-import io.reactivex.Flowable;
-
 import com.rkaneko.example.controller.recommendation.RecommendationOutputForm;
+import io.reactivex.Observable;
 
 public interface RecommendationService {
-    Flowable<RecommendationOutputForm> get(long accountId);
+    Observable<RecommendationOutputForm> get(long accountId);
 }

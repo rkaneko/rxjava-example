@@ -1,6 +1,6 @@
 package com.rkaneko.example.infra.adapter.recommendation.service.impl;
 
-import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class RecommendationServiceImpl implements RecommendationService {
     private final ApiRegistry apiRegistry;
 
     @Override
-    public Flowable<RecommendationOutputForm> get(long accountId) {
+    public Observable<RecommendationOutputForm> get(long accountId) {
         Preconditions.checkState(accountId > 0);
         RecommendationInputForm inputForm = new RecommendationInputForm(accountId);
         RecommendationApi recommendationApi = apiRegistry.of(RecommendationApi.class);
