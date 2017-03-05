@@ -3,6 +3,7 @@ package com.rkaneko.example;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 public class DatabaseConfig {
     @Value("${spring.datasource.username}")
@@ -22,5 +23,10 @@ public class DatabaseConfig {
         dataSource.setDriverClassName(driverClassName);
         dataSource.setUrl(url);
         return dataSource;
+    }
+
+    @Bean
+    public NamedParameterJdbcTemplate namedParameterJdbcTemplate() {
+        return new NamedParameterJdbcTemplate(dataSource());
     }
 }
