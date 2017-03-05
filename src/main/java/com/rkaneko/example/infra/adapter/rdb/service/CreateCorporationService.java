@@ -25,7 +25,6 @@ public class CreateCorporationService {
         Address unidentifiedAddress = Address.builder()
                 .corporationId(corporation.getId())
                 .state(anonymousAddress.getState())
-                .phone(anonymousAddress.getPhone())
                 .build();
         Address address = addressRepository.save(unidentifiedAddress);
         return Corporation.aggregate(corporation, address);

@@ -11,5 +11,5 @@ public class Address {
     private Long id;
     private Long corporationId;
     private String state;
-    private String messageUniqueId;
+    private String messageUniqueKey;
 }
