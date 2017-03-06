@@ -1,13 +1,14 @@
 package com.rkaneko.example.infra.adapter.rdb.model;
 
-import com.google.common.base.Preconditions;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import com.google.common.base.Preconditions;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
@@ -16,6 +17,14 @@ public class Corporation {
     private String name;
     private String messageUniqueKey;
     private List<Address> addresses;
+
+    public boolean isAnonymous() {
+        if (addresses.isEmpty()) {
+            return id != null;
+        }
+
+        return id != null && !addresses.stream().anyMatch(address -> address.getId() == null);
+    }
 
     public static Corporation anonymous(String name, String messageUniqueKey) {
         Preconditions.checkNotNull(name);
@@ -33,11 +42,7 @@ public class Corporation {
         Preconditions.checkNotNull(corporation);
         Preconditions.checkNotNull(addresses);
 
-        return new Corporation(
-                corporation.getId()
-                , corporation.getName()
-                , corporation.getMessageUniqueKey()
-                , Arrays.asList(addresses)
-        );
+        return new Corporation(corporation.getId(), corporation.getName(), corporation.getMessageUniqueKey(),
+                Arrays.asList(addresses));
     }
 }

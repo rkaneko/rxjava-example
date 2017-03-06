@@ -10,4 +10,5 @@ import lombok.Setter;
 public class IdempotentWriteInputForm {
     private String corporationName;
     private String state;
+    private String messageUniqueKey;
 }
